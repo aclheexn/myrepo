@@ -90,7 +90,7 @@ shinyServer(function(input, output) {
     "Updated!"
   })
   
-  #Outputs Updated Text
+  #Outputs 'Updated' Text
   output$updated = renderText({
     paste(text(), input$update)
   })

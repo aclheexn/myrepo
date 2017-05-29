@@ -11,7 +11,7 @@ shinyServer(function(input, output) {
     )
   })
   
-  
+  #Creates the BoxPlot *Need to make a ggplot of this to make more interactive*
   output$aovPlot = renderPlot({
     value = gen_data()
     df = data.frame(y = c(rnorm(value[1], value[2], value[5]), 
@@ -20,6 +20,8 @@ shinyServer(function(input, output) {
                     group = rep(sprintf('mu%s', 1:3), each = value[1]))
     boxplot(df$y ~ df$group, main = "Boxplot of 3 Groups of Means")
   })
+  
+  #Summary of the data
   output$aovSummary = renderPrint({
     value = gen_data()
     df = data.frame(y = c(rnorm(value[1], value[2], value[5]), 
@@ -29,6 +31,8 @@ shinyServer(function(input, output) {
     
     summary(aov(df$y ~ df$group))
   })
+  
+  #Displays the F Crit Value
   output$Fcrit = renderPrint({
     value = gen_data()
     df = data.frame(y = c(rnorm(value[1], value[2], value[5]), 
@@ -51,7 +55,10 @@ shinyServer(function(input, output) {
   #   curve(df(x, df1 = df1, df2 = df2), from = 0, to = 100, xLab = "F-statistic
   #         ")# Add in ability to repeat same sample. P-value distribution changes
   # })
+  
+  #Makes number of simulations into a reactive variable
   counter = reactive(input$sim)
+  #Creates the P-value plot through the number of simulations
   output$pvalueplot = renderPlot({
     simulations = counter()
     vector = c()
