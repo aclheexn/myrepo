@@ -27,6 +27,7 @@ shinyServer(function(input, output) {
   output$animalPlot = 
     renderPlot({
       
+      #If they don't checkbox anything
       if(length(input$transforms) == 0)
       {
         plot(animaldata[,input$Xanimal], animaldata[,input$Yanimal])
@@ -35,8 +36,10 @@ shinyServer(function(input, output) {
                                                      format(summary(lm(animaldata[,input$Xanimal]~animaldata[,input$Yanimal]))$adj.r.squared, digits = 4)))
       }
       
+      # If they checkbox one of them
       else if(length(input$transforms) == 1)
       {
+        # If they only checkbox the Transform Y option
         if(input$transforms == 'Transform Y')
         {
           plot(animaldata[,input$Xanimal], log(animaldata[,input$Yanimal]))
@@ -44,7 +47,7 @@ shinyServer(function(input, output) {
           legend("topright", bty = "n", legend = paste("R2 is", 
                                                        format(summary(lm(animaldata[,input$Xanimal]~log(animaldata[,input$Yanimal])))$adj.r.squared, digits = 4)))
         }
-        
+        # If they only checkbox the Transform X option
         else if(input$transforms == 'Transform X')
         {
           plot(log(animaldata[,input$Xanimal]), animaldata[,input$Yanimal])
@@ -54,7 +57,7 @@ shinyServer(function(input, output) {
         }      
         
       }
-      
+      #If they check both boxes
       else #Doesn't plot line, but plots R-squared value
       {
         plot(log(animaldata[,input$Xanimal]), log(animaldata[,input$Yanimal]))
