@@ -35,7 +35,9 @@ body = dashboardBody(
   tabItems(
     tabItem(tabName = "overview",
             h3("Overview of task"),
-            "The task in this assignment is to..."),
+            "The task in this assignment is to attempt to 
+            linearize graphs that don't have any obvious 
+            trends in their original x vs. y graph."),
     tabItem(tabName = "transformations",
             h2("Log Transformation Task"),
             sidebarLayout(
