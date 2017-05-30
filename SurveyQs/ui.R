@@ -6,6 +6,13 @@
 # 
 #    http://shiny.rstudio.com/
 #
+# input a class code
+# Get classes or everybody's data
+# Collecting, saving, Download
+# Number of responses per quesiton
+# Question bank of 10 then giving options to add another question
+# Age Gender Major <-- Important Qs(Need 20.  Get info Qs from other groups)
+
 
 library(shiny)
 
@@ -32,18 +39,45 @@ shinyUI(fluidPage(
                   step = 0.25),
       textInput(inputId = "text", label = "Name", value = "None"),
       selectInput(inputId = "height", label = "Input Your Height(Inches)",
-                  choices = seq(48, 78)
-      ),
+                  choices = seq(48, 78)),
+      sliderInput("age",
+                  "What is your age",
+                  min = 0,
+                  max = 100,
+                  value = 0),
+      selectInput("major",
+                  "What college are you in",
+                  choices = c("Engineering", 
+                              "Science", 
+                              "Agricultural Sciences",
+                              "Arts & Architecture",
+                              "Communications",
+                              "Earth & Mineral Sciences",
+                              "Education",
+                              "Health & Human Development",
+                              "IST",
+                              "Liberal Arts",
+                              "DUS",
+                              "Business")),
+      radioButtons("gender",
+                   "Gender",
+                   choices = c("Female", "Male")),
       actionButton("save", label = "Save"),
       actionButton("update", label = "Update Table"),
       actionButton("clear", label = "Clear Table"),
-      helpText(textOutput("updated"), style = "color:red")
+      actionButton("show", label = "Show Total Table"),
+      helpText(textOutput("updated"), style = "color:red"),
+      br(),
+      downloadButton("downloadData",
+                     "Download")
+      
     ),
     
     # Show a plot of the generated distribution
     mainPanel(
       plotOutput("distPlot"),
-      verbatimTextOutput("table")
+      verbatimTextOutput("table"),
+      tableOutput("tote")
     )
   )
 ))

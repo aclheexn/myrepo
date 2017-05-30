@@ -5,11 +5,16 @@
 # Find out more about building applications with Shiny here:
 # 
 #    http://shiny.rstudio.com/
-#
+# input a class code
+# Get classes or everybody's data
+# Collecting, saving, Download
+# Number of responses per quesiton
+# Question bank of 10 then giving options to add another question
+# Age Gender Major <-- Important Qs
 
 library(shiny)
 
-# Put Into Console
+# Put Into Console/I think you can put this under server file to take inputs from ui
 ##############################################################
 outputDir <- "responses"
 
@@ -49,9 +54,12 @@ shinyServer(function(input, output) {
   
   update = reactive({
     value = data.frame("Name" = input$text, 
-                       "SAT Score" = input$score,
-                       "Internet Hours" = input$hours, 
-                       "Height in Inches" = input$height)
+                       "Age" = input$age,
+                       "Major" = input$major,
+                       "Gender" = input$gender,
+                       "SAT" = input$score,
+                       "Internet" = input$hours, 
+                       "Height" = input$height)
     # had c(input$bins, input$text) 
     # Adding a df to a character vector doesn't work
   })
@@ -102,6 +110,25 @@ shinyServer(function(input, output) {
     })
     values$df = data.frame()
   })
+  
+  #Shows total Table with all saves
+  observeEvent(input$show, {
+    output$tote = renderTable({
+      loadData()
+    })
+  })
+  
+  #First try at a download button hoooooooooooly shheeeeeeeeeeet it works
+  output$downloadData = downloadHandler(
+    filename = function(){
+      paste('data-', Sys.Date(), '.csv', sep = '')
+    },
+    content = function(con){
+      write.csv(loadData(), con)
+    }
+  )
+  
+
   
   
   
