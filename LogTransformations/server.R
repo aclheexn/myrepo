@@ -30,10 +30,10 @@ shinyServer(function(input, output) {
       #If they don't checkbox anything
       if(length(input$transforms) == 0)
       {
-        plot(animaldata[,input$Xanimal], animaldata[,input$Yanimal])
-        abline(lm(animaldata[,input$Xanimal]~animaldata[,input$Yanimal]), col = 'red')
-        legend("topright", bty = "n", legend = paste("R2 is", 
-                                                     format(summary(lm(animaldata[,input$Xanimal]~animaldata[,input$Yanimal]))$adj.r.squared, digits = 4)))
+        plot(animaldata[,input$Xanimal], animaldata[,input$Yanimal], xlab = input$Xanimal, ylab = input$Yanimal, main = "Brain(g) vs Body(kg)")
+        # abline(lm(animaldata[,input$Xanimal]~animaldata[,input$Yanimal]), col = 'red')
+        # legend("topright", bty = "n", legend = paste("R2 is", 
+        #                                              format(summary(lm(animaldata[,input$Xanimal]~animaldata[,input$Yanimal]))$adj.r.squared, digits = 4)))
       }
       
       # If they checkbox one of them
@@ -42,28 +42,28 @@ shinyServer(function(input, output) {
         # If they only checkbox the Transform Y option
         if(input$transforms == 'Transform Y')
         {
-          plot(animaldata[,input$Xanimal], log(animaldata[,input$Yanimal]))
-          abline(lm(animaldata[,input$Xanimal]~animaldata[,input$Yanimal]), col = 'red')
-          legend("topright", bty = "n", legend = paste("R2 is", 
-                                                       format(summary(lm(animaldata[,input$Xanimal]~log(animaldata[,input$Yanimal])))$adj.r.squared, digits = 4)))
+          plot(animaldata[,input$Xanimal], log(animaldata[,input$Yanimal]), xlab = input$Xanimal, ylab = paste("Log:", input$Yanimal), main = "Brain(g) vs Body(kg)")
+          # abline(lm(animaldata[,input$Xanimal]~animaldata[,input$Yanimal]), col = 'red')
+          # legend("topright", bty = "n", legend = paste("R2 is", 
+          #                                              format(summary(lm(animaldata[,input$Xanimal]~log(animaldata[,input$Yanimal])))$adj.r.squared, digits = 4)))
         }
         # If they only checkbox the Transform X option
         else if(input$transforms == 'Transform X')
         {
-          plot(log(animaldata[,input$Xanimal]), animaldata[,input$Yanimal])
-          abline(lm(animaldata[,input$Xanimal]~animaldata[,input$Yanimal]), col = 'red')
-          legend("topright", bty = "n", legend = paste("R2 is", 
-                                                       format(summary(lm(log(animaldata[,input$Xanimal])~animaldata[,input$Yanimal]))$adj.r.squared, digits = 4)))
+          plot(log(animaldata[,input$Xanimal]), animaldata[,input$Yanimal], xlab = paste("Log:", input$Xanimal), ylab = input$Yanimal, main = "Brain(g) vs Body(kg)")
+          # abline(lm(animaldata[,input$Xanimal]~animaldata[,input$Yanimal]), col = 'red')
+          # legend("topright", bty = "n", legend = paste("R2 is", 
+          #                                              format(summary(lm(log(animaldata[,input$Xanimal])~animaldata[,input$Yanimal]))$adj.r.squared, digits = 4)))
         }      
         
       }
       #If they check both boxes
       else #Doesn't plot line, but plots R-squared value
       {
-        plot(log(animaldata[,input$Xanimal]), log(animaldata[,input$Yanimal]))
-        abline(lm(animaldata[,input$Xanimal]~animaldata[,input$Yanimal]), col = 'red')
-        legend("topright", bty = "n", legend = paste("R2 is", 
-                                                     format(summary(lm(log(animaldata[,input$Xanimal])~log(animaldata[,input$Yanimal])))$adj.r.squared, digits = 4)))
+        plot(log(animaldata[,input$Xanimal]), log(animaldata[,input$Yanimal]), xlab = paste("Log:", input$Xanimal), ylab = paste("Log:", input$Yanimal), main = "Brain(g) vs Body(kg)")
+        # abline(lm(animaldata[,input$Xanimal]~animaldata[,input$Yanimal]), col = 'red')
+        # legend("topright", bty = "n", legend = paste("R2 is", 
+        #                                              format(summary(lm(log(animaldata[,input$Xanimal])~log(animaldata[,input$Yanimal])))$adj.r.squared, digits = 4)))
       }
       
     })
@@ -73,30 +73,30 @@ shinyServer(function(input, output) {
       
       if(length(input$transforms) == 0)
       {
-        plot(worlddata[,input$Xworld], worlddata[,input$Yworld])
-        abline(lm(worlddata[,input$Xworld]~worlddata[,input$Yworld]), col = 'red')
-        legend("topright", bty = "n", legend = paste("R2 is", 
-                                                     format(summary(lm(worlddata[,input$Xworld]~worlddata[,input$Yworld]))$adj.r.squared, digits = 4)))
+        plot(worlddata[,input$Xworld], worlddata[,input$Yworld], xlab = input$Xworld, ylab = input$Yworld, main = paste(input$Xanimal, "vs", input$Yanimal))
+        #abline(lm(worlddata[,input$Xworld]~worlddata[,input$Yworld]), col = 'red')
+        #legend("topright", bty = "n", legend = paste("R2 is", 
+                                                     #format(summary(lm(worlddata[,input$Xworld]~worlddata[,input$Yworld]))$adj.r.squared, digits = 4)))
       }
       
       else if(length(input$transforms) == 1)
       {
         if(input$transforms == 'Transform Y')
         {
-          plot(worlddata[,input$Xworld], log(worlddata[,input$Yworld]))
-          abline(lm(worlddata[,input$Xworld]~worlddata[,input$Yworld]), col = 'red')
+          plot(worlddata[,input$Xworld], log(worlddata[,input$Yworld]), xlab = input$Xworld, ylab = paste("Log:", input$Yworld), main = paste(input$Xanimal, "vs", "Log:", input$Yanimal))
+          #abline(lm(worlddata[,input$Xworld]~worlddata[,input$Yworld]), col = 'red')
         }
         else if(input$transforms == 'Transform X')
         {
-          plot(log(worlddata[,input$Xworld]), worlddata[,input$Yworld])
-          abline(lm(worlddata[,input$Xworld]~worlddata[,input$Yworld]), col = 'red')
+          plot(log(worlddata[,input$Xworld]), worlddata[,input$Yworld], xlab = paste("Log:", input$Xworld), ylab = input$Yworld, main = paste("Log:", input$Xanimal, "vs", input$Yanimal))
+          #abline(lm(worlddata[,input$Xworld]~worlddata[,input$Yworld]), col = 'red')
         }
       }
       
       else
       {
-        plot(log(worlddata[,input$Xworld]), log(worlddata[,input$Yworld]))
-        abline(lm(worlddata[,input$Xworld]~worlddata[,input$Yworld]), col = 'red')
+        plot(log(worlddata[,input$Xworld]), log(worlddata[,input$Yworld]), xlab = paste("Log:", input$Xworld), ylab = paste("Log:", input$Yworld), main = paste("Log:", input$Xanimal, "vs", "Log:", input$Yanimal))
+        #abline(lm(worlddata[,input$Xworld]~worlddata[,input$Yworld]), col = 'red')
       }
       
     })

@@ -42,7 +42,7 @@ body = dashboardBody(
             h2("Log Transformation Task"),
             sidebarLayout(
               sidebarPanel(
-                selectInput("inputs", "Select Data Set", choices = c('None', 'Animals', 'World')),
+                selectInput("inputs", "Select Data Set", choices = c('None', 'Animals', 'World', 'Make your own')),
                 conditionalPanel(
                   condition = "input.inputs == 'World'",
                   selectInput("Xworld", 
@@ -63,6 +63,7 @@ body = dashboardBody(
                   )
                 ),
                 checkboxGroupInput("transforms", "Transform X or Y", c("Transform X", "Transform Y"))
+                #selectInput("plottype", "Plot Type", choices = c("Dot Plot", "Histogram"))
               ),
               
               # Show a plot of the generated distribution
@@ -75,6 +76,7 @@ body = dashboardBody(
                   condition = "input.inputs == 'Animals'",
                   plotOutput("animalPlot")
                   # verbatimTextOutput("summary")
+                  # Add in option to make it a histogram
                 )
               )))
   )
