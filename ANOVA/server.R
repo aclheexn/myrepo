@@ -2,8 +2,8 @@ library(shiny)
 library(ggplot2)
 
 # Add in plot interaction with ggplot
-# Include better boxplot
-# Other things other than normal data
+# Include better boxplot -- Done
+# Other things other than normal data -- Can do once students can draw their own curves
 
 shinyServer(function(input, output) {
   
