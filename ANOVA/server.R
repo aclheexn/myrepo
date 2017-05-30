@@ -1,4 +1,9 @@
 library(shiny)
+library(ggplot2)
+
+# Add in plot interaction with ggplot
+# Include better boxplot
+# Other things other than normal data
 
 shinyServer(function(input, output) {
   
@@ -18,7 +23,9 @@ shinyServer(function(input, output) {
                           rnorm(value[1], value[3], value[5]), 
                           rnorm(value[1], value[4], value[5])),
                     group = rep(sprintf('mu%s', 1:3), each = value[1]))
-    boxplot(df$y ~ df$group, main = "Boxplot of 3 Groups of Means")
+    ggplot(data = df, aes(x = df$group, y = df$y)) + 
+      geom_boxplot(data = df, aes(x = df$group, y = df$y)) + 
+      geom_point(data = df, aes(x = df$group, y = df$y))
   })
   
   #Summary of the data

@@ -37,7 +37,7 @@ shinyUI(fluidPage(theme = shinytheme("darkly"),
                                mainPanel(
                                  helpText('The black bars denote group means.'),
                                  plotOutput('aovPlot'),
-                                 h3('ANOVA Table'),
+                                 h3('Example ANOVA Table for 1 Simulation'),
                                  verbatimTextOutput('aovSummary'),
                                  plotOutput('pvalueplot')
                                )
@@ -45,5 +45,5 @@ shinyUI(fluidPage(theme = shinytheme("darkly"),
                     
                                  ),
                   
-                  mainPanel()
+                                mainPanel()
                                  ))
