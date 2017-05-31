@@ -64,9 +64,21 @@ shinyServer(function(input, output) {
     )
   }
   
+  saveData2 <- function(data) {
+    #data <- t(data)
+    # Create a unique file name
+    fileName <- sprintf(paste(input$code, "%s_%s.csv"), as.integer(Sys.time()), digest::digest(data))
+    # Write the file to the local system
+    write.csv(
+      x = data,
+      file = file.path(paste(outputDir, "/all", sep = ''), fileName), 
+      row.names = FALSE, quote = TRUE
+    )
+  }
+  
   loadData <- function() {
     # Read all the files into a list
-    files <- list.files(outputDir, full.names = TRUE)
+    files <- list.files(paste(outputDir, '/all', sep = ''), full.names = TRUE)
     data <- lapply(files, read.csv, stringsAsFactors = FALSE) 
     # Concatenate all data together into one data.frame
     data <- do.call(rbind, data)
@@ -75,7 +87,7 @@ shinyServer(function(input, output) {
   
   loadData2 <- function() { #Need to make it so that it only captures ones with the input$code
     # Read all the files into a list
-    files <- list.files(outputDir, full.names = TRUE)
+    files <- list.files(paste(outputDir,'/', input$code, sep = ''), full.names = TRUE)
     data <- lapply(files, read.csv, stringsAsFactors = FALSE) 
     # Concatenate all data together into one data.frame
     data <- do.call(rbind, data)
@@ -133,6 +145,7 @@ shinyServer(function(input, output) {
       dir.create(path = paste('responses/',input$code, sep = ''))
     #}
     saveData(values$df)
+    saveData2(values$df)
   })
   
   #Creation of Text function so it appears when u click button
