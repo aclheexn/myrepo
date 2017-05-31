@@ -65,6 +65,7 @@ shinyUI(fluidPage(
       radioButtons("gender",
                    "Gender",
                    choices = c("Female", "Male")),
+      # actionButton("folder", label = "Create Folder"),
       actionButton("save", label = "Save"),
       actionButton("update", label = "Update Table"),
       actionButton("clear", label = "Clear Table"),

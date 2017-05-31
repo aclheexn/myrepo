@@ -44,7 +44,13 @@ library(shiny)
 
 
 shinyServer(function(input, output) {
+  
   outputDir <- "responses"
+  # 
+  # observeEvent(input$folder, {
+  #   dir.create(path = paste('responses/',input$code, sep = ''))
+  # })
+  # dir.create(path = paste('SurveyQs/responses/',input$code, sep = ''))
   
   saveData <- function(data) {
     #data <- t(data)
@@ -53,7 +59,7 @@ shinyServer(function(input, output) {
     # Write the file to the local system
     write.csv(
       x = data,
-      file = file.path(outputDir, fileName), 
+      file = file.path(paste(outputDir, "/", input$code, sep = ''), fileName), 
       row.names = FALSE, quote = TRUE
     )
   }
@@ -122,6 +128,10 @@ shinyServer(function(input, output) {
   
   #Saves table to a csv file on folder
   observeEvent(input$save, {
+    #if(input$save == 0)
+    #{
+      dir.create(path = paste('responses/',input$code, sep = ''))
+    #}
     saveData(values$df)
   })
   
@@ -166,10 +176,4 @@ shinyServer(function(input, output) {
       write.csv(loadData(), con)
     }
   )
-  
-
-  
-  
-  
-  
 })
