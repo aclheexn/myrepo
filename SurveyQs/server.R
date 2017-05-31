@@ -103,7 +103,8 @@ shinyServer(function(input, output) {
   #Creates reactive values for inputs
   
   update = reactive({
-    value = data.frame("Name" = input$text, 
+    value = data.frame("CodeNum" = input$code,
+                       "Name" = input$text, 
                        "Age" = input$age,
                        "Major" = input$major,
                        "Gender" = input$gender,
