@@ -66,10 +66,10 @@ shinyUI(fluidPage(
       actionButton("update", label = "Update Table"),
       actionButton("clear", label = "Clear Table"),
       actionButton("show", label = "Show Total Table"),
-      helpText(textOutput("updated"), style = "color:red"),
+      helpText(textOutput("Updated"), style = "color:red"),
       br(),
       downloadButton("downloadData",
-                     "Download")
+                     "Download All Existing Data")
       
     ),
     
