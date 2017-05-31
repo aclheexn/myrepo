@@ -16,34 +16,66 @@ library(shiny)
 
 # Put Into Console/I think you can put this under server file to take inputs from ui
 ##############################################################
-outputDir <- "responses"
-
-saveData <- function(data) {
-  #data <- t(data)
-  # Create a unique file name
-  fileName <- sprintf("%s_%s.csv", as.integer(Sys.time()), digest::digest(data))
-  # Write the file to the local system
-  write.csv(
-    x = data,
-    file = file.path(outputDir, fileName), 
-    row.names = FALSE, quote = TRUE
-  )
-}
-
-loadData <- function() {
-  # Read all the files into a list
-  files <- list.files(outputDir, full.names = TRUE)
-  data <- lapply(files, read.csv, stringsAsFactors = FALSE) 
-  # Concatenate all data together into one data.frame
-  data <- do.call(rbind, data)
-  data
-}
+# outputDir <- "responses"
+# 
+# saveData <- function(data) {
+#   #data <- t(data)
+#   # Create a unique file name
+#   fileName <- sprintf(paste(input$code, "%s_%s.csv"), as.integer(Sys.time()), digest::digest(data))
+#   # Write the file to the local system
+#   write.csv(
+#     x = data,
+#     file = file.path(outputDir, fileName), 
+#     row.names = FALSE, quote = TRUE
+#   )
+# }
+# 
+# loadData <- function() {
+#   # Read all the files into a list
+#   files <- list.files(outputDir, full.names = TRUE)
+#   data <- lapply(files, read.csv, stringsAsFactors = FALSE) 
+#   # Concatenate all data together into one data.frame
+#   data <- do.call(rbind, data)
+#   data
+# }
 ###############################################################
 # Can use loadData() as an argument in Shiny Server
 # ^ That's the next step
 
 
 shinyServer(function(input, output) {
+  outputDir <- "responses"
+  
+  saveData <- function(data) {
+    #data <- t(data)
+    # Create a unique file name
+    fileName <- sprintf(paste(input$code, "%s_%s.csv"), as.integer(Sys.time()), digest::digest(data))
+    # Write the file to the local system
+    write.csv(
+      x = data,
+      file = file.path(outputDir, fileName), 
+      row.names = FALSE, quote = TRUE
+    )
+  }
+  
+  loadData <- function() {
+    # Read all the files into a list
+    files <- list.files(outputDir, full.names = TRUE)
+    data <- lapply(files, read.csv, stringsAsFactors = FALSE) 
+    # Concatenate all data together into one data.frame
+    data <- do.call(rbind, data)
+    data
+  }
+  
+  loadData2 <- function() { #Need to make it so that it only captures ones with the input$code
+    # Read all the files into a list
+    files <- list.files(outputDir, full.names = TRUE)
+    data <- lapply(files, read.csv, stringsAsFactors = FALSE) 
+    # Concatenate all data together into one data.frame
+    data <- do.call(rbind, data)
+    data
+  }
+  
   # First Try to add to and Create Reactive Data Frame
   # react = reactive({
   #   # updated = update()
@@ -116,6 +148,13 @@ shinyServer(function(input, output) {
     output$tote = renderTable({
       loadData()
     })
+  })
+  
+  #Shows table with only select # of saves
+  observeEvent(input$show2, {
+    output$tote = renderTable({
+    loadData2()
+  })
   })
   
   #First try at a download button hoooooooooooly shheeeeeeeeeeet it works

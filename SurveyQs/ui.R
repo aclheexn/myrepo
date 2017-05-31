@@ -21,6 +21,9 @@ shinyUI(fluidPage(
   
   # Application title
   titlePanel("Survey Data"),
+  numericInput("code",
+               "Class Code",
+               value = 000),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
@@ -65,7 +68,8 @@ shinyUI(fluidPage(
       actionButton("save", label = "Save"),
       actionButton("update", label = "Update Table"),
       actionButton("clear", label = "Clear Table"),
-      actionButton("show", label = "Show Total Table"),
+      actionButton("show", label = "Show All Data"),
+      actionButton("show2", label = "Show Class Data"),
       helpText(textOutput("Updated"), style = "color:red"),
       br(),
       downloadButton("downloadData",
@@ -75,7 +79,6 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
     mainPanel(
-      plotOutput("distPlot"),
       verbatimTextOutput("table"),
       tableOutput("tote")
     )
