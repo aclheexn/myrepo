@@ -67,6 +67,8 @@ shinyServer(function(input, output) {
       }
       
     })
+  
+  
   #World Plots(bestfit line doesn't work for Transform y) Maybe Can use ggplot
   output$worldPlot = 
     renderPlot({
@@ -97,6 +99,24 @@ shinyServer(function(input, output) {
       {
         plot(log(worlddata[,input$Xworld]), log(worlddata[,input$Yworld]), xlab = paste("Log:", input$Xworld), ylab = paste("Log:", input$Yworld), main = paste("Log:", input$Xanimal, "vs", "Log:", input$Yanimal))
         #abline(lm(worlddata[,input$Xworld]~worlddata[,input$Yworld]), col = 'red')
+      }
+      
+    })
+  output$animalBars =
+    renderPlot({
+      hist(animaldata[,input$Xanimal])
+    if(length(input$transforms) >= 1)
+    {
+      hist(log(animaldata[,input$Xanimal]))
+    }
+    })
+  
+  output$animalBars2 =
+    renderPlot({
+      hist(animaldata[,input$Yanimal])
+      if(length(input$transforms) >= 1)
+      {
+        hist(log(animaldata[,input$Yanimal]))
       }
       
     })

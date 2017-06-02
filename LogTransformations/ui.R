@@ -5,7 +5,9 @@
 # Find out more about building applications with Shiny here:
 # 
 #    http://shiny.rstudio.com/
-#
+# Input Inverse Transformation
+# Include bar charts
+# Have
 
 library(shiny)
 library(shinydashboard)
@@ -62,7 +64,14 @@ body = dashboardBody(
                               c('none','body', 'brain')
                   )
                 ),
-                checkboxGroupInput("transforms", "Transform X or Y", c("Transform X", "Transform Y"))
+                selectInput("TransformType", "Transformation Type", choices = c("Logarithmic", "Inverse")),
+                conditionalPanel(
+                  condition = "input.TransformType == 'Logarithmic'",
+                checkboxGroupInput("transforms", "Transform X or Y", c("Transform X", "Transform Y"))),
+                conditionalPanel(
+                  condition = "input.TransformType == 'Inverse'",
+                  checkboxGroupInput("invtransforms", "Transform X or Y", c("Transform X", "Transform Y"))
+                )
                 #selectInput("plottype", "Plot Type", choices = c("Dot Plot", "Histogram"))
               ),
               
@@ -74,13 +83,14 @@ body = dashboardBody(
                 ),
                 conditionalPanel(
                   condition = "input.inputs == 'Animals'",
-                  plotOutput("animalPlot")
+                  plotOutput("animalPlot"),
+                  plotOutput("animalBars"),
+                  plotOutput("animalBars2")
                   # verbatimTextOutput("summary")
                   # Add in option to make it a histogram
                 )
               )))
   )
 )
-
 
 shinyUI(dashboardPage(header, sidebar, body))
