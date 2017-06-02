@@ -33,7 +33,8 @@ shinyServer(function(input, output) {
   update = reactive({
     value = data.frame("gender" = input$gender,
                        "ethnicity" = input$eth,
-                       "age" = input$age2,
+                       "ageQual" = input$age2,
+                       "ageQuan" = input$age1,
                        "major" = input$major,
                        "semester" = input$semester,
                        "Politics1" = input$p1,
@@ -45,8 +46,37 @@ shinyServer(function(input, output) {
                        "Health4" = input$h4)
   })
   
+  update2 = reactive({
+    value = data.frame("gender" = input$genderA,
+                       "ethnicity" = input$ethA,
+                       "ageQual" = input$age1A,
+                       "ageQuan" = input$age2A,
+                       "major" = input$majorA,
+                       "semester" = input$semesterA,
+                       "Politics1" = input$p1A,
+                       "Education1" = input$e1,
+                       "Education2" = input$e2,
+                       "Health1" = input$h1A,
+                       "Health2" = input$h2A,
+                       "Health3" = input$smoke,
+                       "Health4" = input$sleep)
+  })
+  
   values = reactiveValues()
   values$df = data.frame()
+  values$df2 = data.frame()
+  
+  
+  # observeEvent(input$submit, {
+  #   updated = update2()
+  #   values$df = rbind(values$df, updated)
+  # })
+  
+  
+  output$dataResult = renderPrint({
+    values$df
+    
+  })
   
   saveQuestions <- function(data) {
     # data <- t(data)
@@ -56,6 +86,18 @@ shinyServer(function(input, output) {
     write.csv(
       x = data,
       file = file.path(paste(outputDir, "/", input$code1, sep = ''), fileName), 
+      row.names = FALSE, quote = TRUE
+    )
+  }
+  
+  saveData <- function(data) {
+    #data <- t(data)
+    # Create a unique file name
+    fileName <- sprintf(paste(input$code, "%s_%s.csv"), as.integer(Sys.time()), digest::digest(data))
+    # Write the file to the local system
+    write.csv(
+      x = data,
+      file = file.path(paste(outputDir, "/", input$code, sep = ''), fileName), 
       row.names = FALSE, quote = TRUE
     )
   }
@@ -102,17 +144,20 @@ shinyServer(function(input, output) {
   observeEvent(input$submit, {
     #if(input$save == 0)
     #{
-    dir.create(path = paste('responses/',input$code, sep = ''))
+    # dir.create(path = paste('responses/',input$code, sep = ''))
     #}
+    updated = update2()
+    values$df = rbind(values$df, updated)
+    
     saveData(values$df)
     saveData2(values$df)
   })
   
   observeEvent(input$submit1, {
     questions = update()
-    values$df = rbind(values$df, questions)
+    values$df2 = rbind(values$df2, questions)
     dir.create(path = paste('responses/',input$code1, sep = ''))
-    saveQuestions(values$df)
+    saveQuestions(values$df2)
     
   })
   

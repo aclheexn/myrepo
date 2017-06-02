@@ -142,9 +142,9 @@ ui <- dashboardPage(
                 ),
                 fluidRow(
                   # column(1, "1.",br(),br(),br(),"2.",br(),br(),br(),"3."),
-                  if(data[1,2] == TRUE){ # Isn't working.
-                    radioButtons("genderA","Gender:",choices = c("Male"='male',"Female"='female',"Rather Not Say"='NA'),inline = TRUE)
-                  }
+                  # if(data[1,2] == TRUE){ # Isn't working.
+                  #   radioButtons("genderA","Gender:",choices = c("Male"='male',"Female"='female',"Rather Not Say"='NA'),inline = TRUE)
+                  # }
                   #column(11,
                          # conditionalPanel("condition = loadData3()", radioButtons("genderA","Gender:",choices = c("Male"='male',"Female"='female',"Rather Not Say"='NA'),inline = TRUE))
                          # conditionalPanel("(input.done == 1)&(input.eth == 1)",  radioButtons("ethA","Ethnicity:",choices = c("White"='white',"Hispanic or Latino"='hl',"Native American"='native',"Asian/Pacific Islander"='asian',"Other"='other'),inline = TRUE)),
