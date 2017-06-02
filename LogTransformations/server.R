@@ -102,28 +102,42 @@ shinyServer(function(input, output) {
       }
       
     })
-  output$animalBars =
-    renderPlot({
-      hist(animaldata[,input$Xanimal])
-    if(length(input$transforms) >= 1)
-    {
-      hist(log(animaldata[,input$Xanimal]))
-    }
-    })
   
-  output$animalBars2 =
-    renderPlot({
-      hist(animaldata[,input$Yanimal])
-      if(length(input$transforms) >= 1)
-      {
-        hist(log(animaldata[,input$Yanimal]))
-      }
-      
-    })
+  #Histograms of both variables
+  observeEvent(input$hist, {
+    output$animalBars =
+      renderPlot({
+        if(input$loghist1 == TRUE)
+        {
+          hist(log(animaldata[,input$Yanimal]))
+        }
+        else{
+          hist(animaldata[,input$Xanimal])
+        }
+      })
+  })
+  
+  
+  observeEvent(input$hist, {
+    output$animalBars2 =
+      renderPlot({
+        if(input$loghist2 == TRUE)
+        {
+          hist(log(animaldata[,input$Yanimal]))
+        }
+        else{
+          hist(animaldata[,input$Yanimal])
+        }
+      })
+  })
+  
   # output$summary = renderPrint({
   #   input$transforms
   # })
   # 
   
-  
+  output$EmptyPlot =
+    renderPlot({
+      plot(x = c(-1,1),y = c(-1,1), type = "n")
+    })
 })

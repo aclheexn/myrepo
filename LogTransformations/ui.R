@@ -49,19 +49,19 @@ body = dashboardBody(
                   condition = "input.inputs == 'World'",
                   selectInput("Xworld", 
                               "Select Your X-Axis", 
-                              c('none','gdp', 'income', 'literacy', 'military')),
+                              c('gdp', 'income', 'literacy', 'military')),
                   selectInput("Yworld",
                               "Select Your Y-Axis",
-                              c('none','gdp', 'income', 'literacy', 'military'))
+                              c('gdp', 'income', 'literacy', 'military'))
                 ),
                 conditionalPanel(
                   condition = "input.inputs == 'Animals'",
                   selectInput("Xanimal",
                               "Select Your X-Axis",
-                              c('none','body','brain')),
+                              c('body','brain')),
                   selectInput("Yanimal",
                               "Select Your Y-Axis",
-                              c('none','body', 'brain')
+                              c('body', 'brain')
                   )
                 ),
                 selectInput("TransformType", "Transformation Type", choices = c("Logarithmic", "Inverse")),
@@ -71,9 +71,13 @@ body = dashboardBody(
                 conditionalPanel(
                   condition = "input.TransformType == 'Inverse'",
                   checkboxGroupInput("invtransforms", "Transform X or Y", c("Transform X", "Transform Y"))
-                )
+                ),
+                actionButton('hist', "Show histogram"),
+                checkboxInput('loghist1', 'Show Log: XValue Hist'),
+                checkboxInput('loghist2', 'show Log: YValue Hist')
                 #selectInput("plottype", "Plot Type", choices = c("Dot Plot", "Histogram"))
               ),
+                
               
               # Show a plot of the generated distribution
               mainPanel(
@@ -86,9 +90,18 @@ body = dashboardBody(
                   plotOutput("animalPlot"),
                   plotOutput("animalBars"),
                   plotOutput("animalBars2")
-                  # verbatimTextOutput("summary")
-                  # Add in option to make it a histogram
                 )
+                # conditionalPanel(
+                #   condition = "input.Xanimal == 'none'",
+                #   plotOutput("EmptyPlot")
+                # ),
+                # conditionalPanel(
+                #   condition = "input.Yanimal == 'none'",
+                #   plotOutput("EmptyPlot")
+                # )
+                # verbatimTextOutput("summary")
+                # Add in option to make it a histogram
+                
               )))
   )
 )
