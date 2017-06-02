@@ -176,7 +176,8 @@ ui <- dashboardPage(
               fluidPage(
                 fluidRow(
                   column(3,textInput("code","Please enter the class code:")),
-                  column(3,offset = 2,actionButton("res","Get the result"))
+                  column(3,offset = 1,actionButton("res","Get class results")),
+                  column(5,offset = 4, actionButton("res2", "Get all results"))
                 ),
                 fluidRow(
                   tableOutput("dataResult")

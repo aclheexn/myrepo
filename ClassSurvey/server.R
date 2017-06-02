@@ -73,7 +73,7 @@ shinyServer(function(input, output) {
   # })
   
   
-  output$dataResult = renderPrint({
+  output$dataResult = renderTable({
     values$df
     
   })
@@ -161,7 +161,7 @@ shinyServer(function(input, output) {
     
   })
   
-  observeEvent(input$get, {
+  observeEvent(input$get, {#It's screwed up when you put in a class code that has already been used
     output$dataTable = renderTable({
       data <<- loadData3()
     })
