@@ -25,7 +25,8 @@ shinyServer(function(input, output) {
                     group = rep(sprintf('mu%s', 1:3), each = value[1]))
     ggplot(data = df, aes(x = df$group, y = df$y)) + 
       geom_boxplot(data = df, aes(x = df$group, y = df$y)) + 
-      geom_point(data = df, aes(x = df$group, y = df$y))
+      geom_point(data = df, aes(x = df$group, y = df$y)) +
+      xlab("Group of Means") + ylab("Values")
   })
   
   #Summary of the data
