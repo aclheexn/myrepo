@@ -83,7 +83,11 @@ body = dashboardBody(
               mainPanel(
                 conditionalPanel(
                   condition = "input.inputs == 'World'",
-                  plotOutput("worldPlot")
+                  plotOutput("worldPlot"),
+                  plotOutput("worldBars"),
+                  plotOutput("worldBars2")
+                  # plotOutput("worldBars3"),
+                  # plotOutput("worldBars4")
                 ),
                 conditionalPanel(
                   condition = "input.inputs == 'Animals'",

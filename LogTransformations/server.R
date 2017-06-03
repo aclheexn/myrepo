@@ -109,27 +109,62 @@ shinyServer(function(input, output) {
       renderPlot({
         if(input$loghist1 == TRUE)
         {
-          hist(log(animaldata[,input$Yanimal]))
+          hist(log(animaldata[,input$Xanimal]),
+               main = paste("Histogram of Log:", input$Xanimal, sep = ''),
+               xlab = paste("Log:", input$Xanimal))
         }
         else{
-          hist(animaldata[,input$Xanimal])
+          hist(animaldata[,input$Xanimal],
+               main = paste("Histogram of", input$Xanimal),
+               xlab = input$Xanimal)
         }
       })
-  })
-  
-  
-  observeEvent(input$hist, {
     output$animalBars2 =
       renderPlot({
         if(input$loghist2 == TRUE)
         {
-          hist(log(animaldata[,input$Yanimal]))
+          hist(log(animaldata[,input$Yanimal]),
+               main = paste("Histogram of Log:", input$Yanimal, sep = ''),
+               xlab = paste("Log:", input$Yanimal))
         }
         else{
-          hist(animaldata[,input$Yanimal])
+          hist(animaldata[,input$Yanimal],
+               main = paste("Histogram of", input$Yanimal),
+               xlab = input$Yanimal)
+        }
+      })
+    output$worldBars =
+      renderPlot({
+        if(input$loghist1 == TRUE)
+        {
+          hist(log(worlddata[,input$Xworld]),
+               main = paste("Histogram of Log:", input$Xworld, sep = ''),
+               xlab = paste("Log:", input$Xworld))
+        }
+        else{
+          hist(worlddata[,input$Xworld],
+               main = paste("Histogram of", input$Xworld),
+               xlab = input$Xworld)
+        }
+      })
+    output$worldBars2 =
+      renderPlot({
+        if(input$loghist2 == TRUE)
+        {
+          hist(log(worlddata[,input$Yworld]), 
+               main = paste("Histogram of Log:", input$Yworld, sep = ''),
+               xlab = paste("Log:", input$Yworld))
+        }
+        else{
+          hist(worlddata[,input$Yworld],
+               main = paste("Histogram of", input$Yworld),
+               xlab = input$Yworld)
         }
       })
   })
+  
+  
+  
   
   # output$summary = renderPrint({
   #   input$transforms
