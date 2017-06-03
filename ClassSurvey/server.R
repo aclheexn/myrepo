@@ -73,10 +73,21 @@ shinyServer(function(input, output) {
   # })
   
   
-  output$dataResult = renderTable({
-    values$df
-    
+  # output$dataResult = renderTable({
+  #   values$df
+  # })
+  # All saves
+  observeEvent(input$res2, {
+    output$dataResult = renderTable({
+      loadData()
+    })
   })
+  
+  observeEvent(input$res, {
+    output$dataResult = renderTable({
+      loadData2()
+    })
+  })  
   
   saveQuestions <- function(data) {
     # data <- t(data)
@@ -125,7 +136,7 @@ shinyServer(function(input, output) {
   
   loadData2 <- function() { #Need to make it so that it only captures ones with the input$code
     # Read all the files into a list
-    files <- list.files(paste(outputDir,'/', input$code, sep = ''), full.names = TRUE)
+    files <- list.files(paste(outputDir,'/', input$code2, sep = ''), full.names = TRUE)
     data <- lapply(files, read.csv, stringsAsFactors = FALSE) 
     # Concatenate all data together into one data.frame
     data <- do.call(rbind, data)
@@ -141,6 +152,7 @@ shinyServer(function(input, output) {
     data
   }
   
+  # Saving the answers in the all file as well as the input code file
   observeEvent(input$submit, {
     #if(input$save == 0)
     #{
@@ -153,6 +165,7 @@ shinyServer(function(input, output) {
     saveData2(values$df)
   })
   
+  # Saving the questions into the input code file
   observeEvent(input$submit1, {
     questions = update()
     values$df2 = rbind(values$df2, questions)
@@ -161,11 +174,14 @@ shinyServer(function(input, output) {
     
   })
   
+  #Getting the True False things for which questions selected
   observeEvent(input$get, {#It's screwed up when you put in a class code that has already been used
     output$dataTable = renderTable({
-      data <<- loadData3()
+      data <- loadData3()
     })
   })
+  
+  observe
   
   output$downloadData = downloadHandler(
     filename = function(){

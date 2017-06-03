@@ -175,9 +175,9 @@ ui <- dashboardPage(
       tabItem(tabName = "result",
               fluidPage(
                 fluidRow(
-                  column(3,textInput("code","Please enter the class code:")),
-                  column(3,offset = 1,actionButton("res","Get class results")),
-                  column(5,offset = 4, actionButton("res2", "Get all results"))
+                  column(3,textInput("code2","Please enter the class code:")),
+                  column(3,offset = 2,actionButton("res","Get class results")),
+                  column(3, actionButton("res2", "Get All Results"))
                 ),
                 fluidRow(
                   tableOutput("dataResult")
@@ -188,7 +188,7 @@ ui <- dashboardPage(
                 hr(),
                 hr(),
                 fluidRow(
-                  column(1,offset = 11,actionButton("download","Download"))
+                  column(1,offset = 11,actionButton("download","Download All Results"))
                 )
               ))
     )
