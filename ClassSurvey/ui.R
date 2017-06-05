@@ -141,6 +141,7 @@ ui <- dashboardPage(
                   tableOutput("dataTable")
                 ),
                 fluidRow(
+                  uiOutput("questionaire")
                   # column(1, "1.",br(),br(),br(),"2.",br(),br(),br(),"3."),
                   # if(data[1,2] == TRUE){ # Isn't working.
                   #   radioButtons("genderA","Gender:",choices = c("Male"='male',"Female"='female',"Rather Not Say"='NA'),inline = TRUE)

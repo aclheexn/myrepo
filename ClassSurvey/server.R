@@ -8,7 +8,7 @@
 # Use DT::renderDataFrame
 
 library(shiny)
-
+# Try UIoutput with renderUI
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
   # update = reactive({
@@ -149,7 +149,7 @@ shinyServer(function(input, output) {
     data <- lapply(files, read.csv, stringsAsFactors = FALSE) 
     # Concatenate all data together into one data.frame
     data <- do.call(rbind, data)
-    data
+    data = data[nrow(data),]
   }
   
   # Saving the answers in the all file as well as the input code file
@@ -179,9 +179,13 @@ shinyServer(function(input, output) {
     output$dataTable = renderTable({
       data <- loadData3()
     })
+    # output$questionaire = renderUI({
+    #   if(data[1,1] == TRUE){
+    #     radioButtons("genderA","Gender:",choices = c("Male"='male',"Female"='female',"Rather Not Say"='NA'),inline = TRUE)
+    #   }
+    #   
+    # }) Add the rest
   })
-  
-  observe
   
   output$downloadData = downloadHandler(
     filename = function(){

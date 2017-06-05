@@ -9,7 +9,7 @@
 # Include bar charts
 # Stuff to do for lata
 # Put everything into dashboard form
-# Think more about the True false problem.
+# Think more about the True false problem.  Kinda working now
 
 
 library(shiny)
