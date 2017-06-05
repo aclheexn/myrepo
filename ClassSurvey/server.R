@@ -158,7 +158,7 @@ shinyServer(function(input, output) {
     #{
     # dir.create(path = paste('responses/',input$code, sep = ''))
     #}
-    updated = update2()
+    updated = update3()
     values$df = rbind(values$df, updated)
     
     saveData(values$df)
@@ -179,12 +179,79 @@ shinyServer(function(input, output) {
     output$dataTable = renderTable({
       data <- loadData3()
     })
-    # output$questionaire = renderUI({
-    #   if(data[1,1] == TRUE){
-    #     radioButtons("genderA","Gender:",choices = c("Male"='male',"Female"='female',"Rather Not Say"='NA'),inline = TRUE)
-    #   }
-    #   
-    # }) Add the rest
+    output$questionaire = renderUI({
+      #if(data$gender[1] != FALSE){
+        radioButtons("Ogender","Gender:",choices = c("Male"='male',"Female"='female',"Rather Not Say"='NA'),inline = TRUE)
+      #}
+      # if(data[2] != 'FALSE'){
+      #   radioButtons("ethA","Ethnicity:",choices = c("White"='white',"Hispanic or Latino"='hl',"Native American"='native',"Asian/Pacific Islander"='asian',"Other"='other'),inline = TRUE)
+      # }
+      # radioButtons("age1A","Age:", choices = c("<18" = 'teenager',"18-25" = 'young', "25-45" = 'middle', "45-65" = 'old', ">65" = 'elder'),inline = TRUE)
+      # if(data[3,1] != 'FALSE'){
+      #   radioButtons("age1A","Age:", choices = c("<18" = 'teenager',"18-25" = 'young', "25-45" = 'middle', "45-65" = 'old', ">65" = 'elder'),inline = TRUE)
+      # }
+    })
+    output$questionaire2 = renderUI({
+      #if(data$ethnicity[1] != FALSE){
+      radioButtons("OethA","Ethnicity:",choices = c("White"='white',"Hispanic or Latino"='hl',"Native American"='native',"Asian/Pacific Islander"='asian',"Other"='other'),inline = TRUE)
+      #}
+            })
+    output$questionaire3 = renderUI({
+      radioButtons("Oage1A","Age:", choices = c("<18" = 'teenager',"18-25" = 'young', "25-45" = 'middle', "45-65" = 'old', ">65" = 'elder'),inline = TRUE)
+    })
+    output$questionaire4 = renderUI({
+      sliderInput("Oage2A","Age:",min = 10, value = 21, max = 80)
+    })
+    output$questionaire5 = renderUI({
+      radioButtons("OmajorA","Major:",choices = c("Science"='sc',"Engineer"='engineer',"Art"='art',"Education"='edu',"Business"='busi'),inline = TRUE)
+    })
+    output$questionaire6 = renderUI({
+      sliderInput("OsemesterA","Semester:",min = 1, value = 5,max = 10)
+    })
+    output$questionaire7 = renderUI({
+      radioButtons("Op1A","Overall, I am satisfied with the City's efforts to create more jobs.",
+                                                                                       choices = c("Strongly Disagree"='StrD',"Moderately Disagree"='MD',"Slightly Disagree"='SliD',
+                                                                                                   "Slightly Agree"='SliA',"Moderately Agree"='MA',"Strongly Agree"='StrA'),inline = TRUE)
+    })
+    
+    output$questionaire8 = renderUI({
+      radioButtons("Oe1A","How many hours do you spend on study per week?",
+                   choices = c("<20hrs"="aEd1","20-40hrs"="bEd1","40-60hrs"="cEd1"),inline = TRUE)
+    })
+    
+    output$questionaire9 = renderUI({
+      radioButtons("Oe2A","What is your SAT score?",choices = c("<1000"="aEd2","1000-1500"="bEd2","1500-2000"="cEd2","2000-2400"="dEd2"),inline = TRUE)
+    })
+    
+    output$questionaire10 = renderUI({
+      sliderInput("Oh1A","Height(cm):",min = 140,value = 158,max = 200)
+    })
+    output$questionaire11 = renderUI({
+      sliderInput("Oh2A","Weight(kg):",min = 40,value = 44,max = 150)
+    })
+    output$questionaire12 = renderUI({
+      radioButtons("Osmoke","How often do you smoke?", choices = c("Never"='aSM',"<1 time per day"='bSM',"1-5 times per day"='cSM',"5-10 times per day"='dSM',">10 times per day"='eSM'),inline = TRUE)
+    })
+    output$questionaire13 = renderUI({
+      radioButtons("Osleep","How many hours do you sleep per day?",
+                    choices = c("<6hrs"='aSL',"6-8hrs"='bSL',"9-10hrs"='cSL',">10hrs"='dSL'),inline = TRUE)
+    })
+  })
+  
+  update3 = reactive({
+    value = data.frame("gender" = input$Ogender,
+                       "ethnicity" = input$OethA,
+                       "ageQual" = input$Oage1A,
+                       "ageQuan" = input$Oage2A,
+                       "major" = input$OmajorA,
+                       "semester" = input$OsemesterA,
+                       "Politics1" = input$Op1A,
+                       "Education1" = input$Oe1A,
+                       "Education2" = input$Oe2A,
+                       "Health1" = input$Oh1A,
+                       "Health2" = input$Oh2A,
+                       "Health3" = input$Osmoke,
+                       "Health4" = input$Osleep)
   })
   
   output$downloadData = downloadHandler(

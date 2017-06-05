@@ -101,6 +101,7 @@ ui <- dashboardPage(
       
       
       tabItem(tabName = "questionaire",
+              titlePanel("Questionaire"),
               column(3,offset = 5,actionButton("done","Generate Your Questionaire")),
               br(),
               hr(),
@@ -116,6 +117,9 @@ ui <- dashboardPage(
                        conditionalPanel("(input.done == 1)&(input.p1 == 1)", radioButtons("p1A","Overall, I am satisfied with the City's efforts to create more jobs.",
                                                                                           choices = c("Strongly Disagree"='StrD',"Moderately Disagree"='MD',"Slightly Disagree"='SliD',
                                                                                                       "Slightly Agree"='SliA',"Moderately Agree"='MA',"Strongly Agree"='StrA'),inline = TRUE)),
+                       conditionalPanel("(input.done == 1)&(input.e1 == 1)", radioButtons("e1A","How many hours do you spend on study per week?",
+                                                                                          choices = c("<20hrs"="aEd1","20-40hrs"="bEd1","40-60hrs"="cEd1"),inline = TRUE)),
+                       conditionalPanel("(input.done == 1)&(input.e2 == 1)", radioButtons("e2A","What is your SAT score?",choices = c("<1000"="aEd2","1000-1500"="bEd2","1500-2000"="cEd2","2000-2400"="dEd2"),inline = TRUE)),
                        conditionalPanel("(input.done == 1)&(input.h1 == 1)", sliderInput("h1A","Height(cm):",min = 140,value = 158,max = 200)),
                        conditionalPanel("(input.done == 1)&(input.h2 == 1)", sliderInput("h2A","Weight(kg):",min = 40,value = 44,max = 150)),
                        conditionalPanel("(input.done == 1)&(input.h3 == 1)", radioButtons("smoke","How often do you smoke?",
@@ -133,6 +137,7 @@ ui <- dashboardPage(
       
       tabItem(tabName = "survey",
               fluidPage(
+                titlePanel("Survey Page"),
                 fluidRow(
                   column(3,textInput("code","Please enter the class code:")),
                   column(3,offset = 2,actionButton("get","Get the questionaire"))
@@ -141,7 +146,19 @@ ui <- dashboardPage(
                   tableOutput("dataTable")
                 ),
                 fluidRow(
-                  uiOutput("questionaire")
+                  uiOutput("questionaire"),
+                  uiOutput("questionaire2"),
+                  uiOutput("questionaire3"),
+                  uiOutput("questionaire4"),
+                  uiOutput("questionaire5"),
+                  uiOutput("questionaire6"),
+                  uiOutput("questionaire7"),
+                  uiOutput("questionaire8"),
+                  uiOutput("questionaire9"),
+                  uiOutput("questionaire10"),
+                  uiOutput("questionaire11"),
+                  uiOutput("questionaire12"),
+                  uiOutput("questionaire13")
                   # column(1, "1.",br(),br(),br(),"2.",br(),br(),br(),"3."),
                   # if(data[1,2] == TRUE){ # Isn't working.
                   #   radioButtons("genderA","Gender:",choices = c("Male"='male',"Female"='female',"Rather Not Say"='NA'),inline = TRUE)
@@ -175,6 +192,7 @@ ui <- dashboardPage(
       
       tabItem(tabName = "result",
               fluidPage(
+                titlePanel("Results"),
                 fluidRow(
                   column(3,textInput("code2","Please enter the class code:")),
                   column(3,offset = 2,actionButton("res","Get class results")),
