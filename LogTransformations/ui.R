@@ -7,7 +7,10 @@
 #    http://shiny.rstudio.com/
 # Input Inverse Transformation
 # Include bar charts
-# Have
+# Stuff to do for lata
+# Put everything into dashboard form
+# Think more about the True false problem.
+
 
 library(shiny)
 library(shinydashboard)
